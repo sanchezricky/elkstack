@@ -2,7 +2,7 @@
 
 ### Objectives
 
-1. Create a script to install the ELK stash on Ubuntu 18.04
+1. Create a script to install the ELK stack on Ubuntu 18.04
 
 ### Technologies used
 
