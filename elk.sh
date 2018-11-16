@@ -18,9 +18,6 @@ echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | sudo tee 
 # Update apt
 sudo apt update
 
-# Upgrade packages
-sudo apt upgrade -y
-
 # Silent install for Java 8
 echo debconf shared/accepted-oracle-license-v1-1 select true | \
   sudo debconf-set-selections
