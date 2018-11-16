@@ -19,6 +19,7 @@ echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | sudo tee 
 sudo apt update
 
 # Silent install for Java 8
+echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
 echo debconf shared/accepted-oracle-license-v1-1 select true | \
   sudo debconf-set-selections
 echo debconf shared/accepted-oracle-license-v1-1 seen true | \
@@ -33,7 +34,14 @@ sudo apt install nginx -y
 # UFW allow Nginx HTTP
 sudo ufw allow 'Nginx HTTP'
 
-# Install elasticsearch
+# Install Elasticsearch
 sudo apt install elasticsearch
 
 # Editing Elasticsearch cfg file
+sudo sed -i "/#network.host/c\network.host: localhost" /etc/elasticsearch/elasticsearch.yml
+
+# Start elasticsearch
+sudo systemctl start elasticsearch
+
+# Enable Elasticsearch to run when system boots
+sudo systemctl enable elasticsearch
