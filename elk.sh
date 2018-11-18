@@ -34,7 +34,7 @@ sudo apt install nginx -y
 sudo ufw allow 'Nginx HTTP'
 
 # Enable UFW
-sudo ufw enable
+sudo ufw --force enable
 
 # Install Elasticsearch
 sudo apt install elasticsearch
