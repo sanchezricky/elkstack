@@ -47,3 +47,10 @@ sudo systemctl start elasticsearch
 
 # Enable Elasticsearch to run when system boots
 sudo systemctl enable elasticsearch
+
+# Install Kibana
+sudo apt install kibana
+
+# Enable and start Kibana
+sudo systemctl enable kibana
+sudo systemctl start kibana
