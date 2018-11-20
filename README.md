@@ -2,7 +2,7 @@
 
 ### Objectives
 
-1. Create a script to install the ELK stack, Java 8, and Nginx on Ubuntu 18.04
+1. Create a script to install the ELK stack, Java 8, and Nginx on Ubuntu 18.04. Originally this was meant for AWS EC2 but the free tier of EC2 does not have enough RAM support.
 
 ### Technologies used
 
