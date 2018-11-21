@@ -54,3 +54,8 @@ apt-get install kibana
 # Enable and start Kibana
 systemctl enable kibana
 systemctl start kibana
+
+# Create admin user and pw for Kibana
+echo "kibadmin:`openssl passwd -apr1`" | tee -a /etc/nginx/htpasswd.users
+
+
