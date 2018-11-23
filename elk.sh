@@ -30,17 +30,15 @@ apt-get install oracle-java8-installer -y
 # Installing Nginx
 apt-get install nginx -y
 
-# UFW allow Nginx HTTP
-# ufw allow 'Nginx HTTP'
-
-# Enable UFW
-# ufw --force enable
-
 # Install Elasticsearch
 apt-get install elasticsearch
 
 # Editing Elasticsearch cfg file
-sed -i "/#network.host/c\network.host: 192.168.56.20" /etc/elasticsearch/elasticsearch.yml
+sed -i "/#network.host/c\network.host: localhost" /etc/elasticsearch/elasticsearch.yml
+
+# Editing JVM heap size to run Elasticsearch at 1g memory 
+# sed -i "/-Xms1g/c\-Xms256m" /etc/elasticsearch/jvm.options
+# sed -i "/-Xmx1g/c\-Xmx256m" /etc/elasticsearch/jvm.options
 
 # Start elasticsearch
 systemctl start elasticsearch
@@ -56,6 +54,24 @@ systemctl enable kibana
 systemctl start kibana
 
 # Create admin user and pw for Kibana
-echo "kibadmin:`openssl passwd -apr1`" | tee -a /etc/nginx/htpasswd.users
+# echo "kibadmin:`openssl passwd -apr1`" | tee -a /etc/nginx/htpasswd.users
 
+# Creating Nginx server block file 
+# echo "
+# server {
+#    listen 80;
 
+#    server_name example.com;
+
+#    auth_basic "Restricted Access";
+#    auth_basic_user_file /etc/nginx/htpasswd.users;
+
+#    location / {
+#        proxy_pass http://localhost:5601;
+#        proxy_http_version 1.1;
+#        proxy_set_header Upgrade $http_upgrade;
+#        proxy_set_header Connection 'upgrade';
+#        proxy_set_header Host $host;
+#        proxy_cache_bypass $http_upgrade;
+#    }
+# }" > /etc/nginx/sites-available/example.com
