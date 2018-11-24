@@ -4,7 +4,6 @@ Vagrant.configure(2) do |config|
     config.vbguest.auto_update = false
   end
 
-
   config.vm.define "elk" do |elk|
 
     elk.vm.box = "ubuntu/bionic64"
@@ -13,6 +12,7 @@ Vagrant.configure(2) do |config|
  
     elk.vm.provider :virtualbox do |v|
       v.name = "elk"
+      v.memory = 1024
     end
 
   end

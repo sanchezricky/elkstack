@@ -31,20 +31,19 @@ apt-get install oracle-java8-installer -y
 apt-get install nginx -y
 
 # Install Elasticsearch
-apt-get install elasticsearch
+apt-get install elasticsearch -y
 
 # Editing Elasticsearch cfg file
 sed -i "/#network.host/c\network.host: localhost" /etc/elasticsearch/elasticsearch.yml
-
-# Editing JVM heap size to run Elasticsearch at 1g memory 
-# sed -i "/-Xms1g/c\-Xms256m" /etc/elasticsearch/jvm.options
-# sed -i "/-Xmx1g/c\-Xmx256m" /etc/elasticsearch/jvm.options
 
 # Start elasticsearch
 systemctl start elasticsearch
 
 # Enable Elasticsearch to run when system boots
 systemctl enable elasticsearch
+
+# Restart elasticsearch
+# systemctl restart elasticsearch
 
 # Install Kibana
 apt-get install kibana
