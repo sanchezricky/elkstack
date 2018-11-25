@@ -12,7 +12,7 @@ Vagrant.configure(2) do |config|
  
     elk.vm.provider :virtualbox do |v|
       v.name = "elk"
-      v.memory = 1024
+      v.memory = 2048
     end
 
   end
