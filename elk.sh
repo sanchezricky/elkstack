@@ -42,9 +42,6 @@ systemctl start elasticsearch
 # Enable Elasticsearch to run when system boots
 systemctl enable elasticsearch
 
-# Restart elasticsearch
-# systemctl restart elasticsearch
-
 # Install Kibana
 apt-get install kibana
 
@@ -53,24 +50,6 @@ systemctl enable kibana
 systemctl start kibana
 
 # Create admin user and pw for Kibana
-# echo "kibadmin:`openssl passwd -apr1`" | tee -a /etc/nginx/htpasswd.users
+echo "kibadmin:`openssl passwd -apr1`" | sudo tee -a /etc/nginx/htpasswd.users
 
 # Creating Nginx server block file 
-# echo "
-# server {
-#    listen 80;
-
-#    server_name example.com;
-
-#    auth_basic "Restricted Access";
-#    auth_basic_user_file /etc/nginx/htpasswd.users;
-
-#    location / {
-#        proxy_pass http://localhost:5601;
-#        proxy_http_version 1.1;
-#        proxy_set_header Upgrade $http_upgrade;
-#        proxy_set_header Connection 'upgrade';
-#        proxy_set_header Host $host;
-#        proxy_cache_bypass $http_upgrade;
-#    }
-# }" > /etc/nginx/sites-available/example.com
