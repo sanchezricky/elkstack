@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-set -e 
-set -u
+set -euo pipefail 
 
 # This script will install the ELK stack, Java 8 and Nginx
 
