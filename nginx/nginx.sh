@@ -14,8 +14,5 @@ apt-get install nginx -y
 # Open port 80 for Nginx
 ufw allow 'Nginx HTTP'
 
-# Enable the firewall
-echo "y" | ufw enable
-
-# Enable SSH
-ufw allow OpenSSH
+# Allow connections to Nginx
+ufw allow 'Nginx Full'
