@@ -26,9 +26,6 @@ echo debconf shared/accepted-oracle-license-v1-1 seen true | \
 # Install Java 8
 apt-get install oracle-java8-installer -y
 
-# Installing Nginx
-apt-get install nginx -y
-
 # Install Elasticsearch
 apt-get install elasticsearch -y
 
