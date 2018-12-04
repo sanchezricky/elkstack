@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # Nginx install
-apt-get install nginx
+apt-get install nginx -y
 
 # Update APT
 apt-get update -y
