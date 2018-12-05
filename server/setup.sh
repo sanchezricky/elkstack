@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
-set -u
+set -euo pipefail
 
 # Initial server setup for Ubuntu 18.04
 
