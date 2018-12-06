@@ -10,6 +10,3 @@
 * **L**ogstash - The data processing component of the Elastic Stack whichsends incoming data to Elasticsearch.
 * **K**ibana - A web interface for searching and visualizing logs.
 * **B**eats - Lightweight, single-purpose data shippers that can send datat from hundreds or thousands of machines to either Logstash or Elasticsearch
-
-
-THIS IS A WORK IN PROGRESS
