@@ -2,20 +2,13 @@
 
 set -euo pipefail 
 
-# This script will install the ELK stack, Java 8 and Nginx
-
 # Adding Java 8 to apt
 add-apt-repository -y ppa:webupd8team/java
 apt-add-repository -y ppa:webupd8team/java
 
-# Importing Elasticsearch public GPG key into APT
-wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
-
-# Adding Elastic source list to the sources.list.d dir
-echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | tee -a /etc/apt/sources.list.d/elastic-6.x.list
-
-# Update apt
-apt-get update
+# APT update/upgrade
+apt-get update -y
+apt-get upgrade -y
 
 # Silent install for Java 8
 echo debconf shared/accepted-oracle-license-v1-1 select true | \
@@ -23,29 +16,38 @@ echo debconf shared/accepted-oracle-license-v1-1 select true | \
 echo debconf shared/accepted-oracle-license-v1-1 seen true | \
   debconf-set-selections
 
-# Install Java 8
+# Java 8 install
 apt-get install oracle-java8-installer -y
 
-# Install Elasticsearch
-apt-get install elasticsearch -y
+# install the Elastic PGP Key and repo
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-6.x.list
 
-# Editing Elasticsearch cfg file
-sed -i "/#network.host/c\network.host: localhost" /etc/elasticsearch/elasticsearch.yml
+sudo apt-get update -y
+sudo apt-get install -y elasticsearch
 
-# Start elasticsearch
-systemctl start elasticsearch
+# copy over configs
+cp /vagrant/elkconfig/elasticsearch.yml /etc/elasticsearch/
+sudo /bin/systemctl daemon-reload
+sudo /bin/systemctl enable elasticsearch.service
+sudo /bin/systemctl start elasticsearch.service
 
-# Enable Elasticsearch to run when system boots
-systemctl enable elasticsearch
+# install Logstash
+sudo apt-get install logstash -y
+
+# copy over configs
+cp -R /vagrant/elkconfig/10-apache-log.conf /etc/logstash/conf.d/
+sudo systemctl enable logstash.service
+sudo systemctl start logstash.service
+
 
 # Install Kibana
-apt-get install kibana
+sudo apt-get install kibana -y
 
-# Enable and start Kibana
-systemctl enable kibana
-systemctl start kibana
+# copy over configs
+cp /vagrant/elkconfig/kibana.yml /etc/kibana/
 
-# Create admin user and pw for Kibana
-echo "kibadmin:`openssl passwd -apr1`" | sudo tee -a /etc/nginx/htpasswd.users
+sudo /bin/systemctl daemon-reload
+sudo /bin/systemctl enable kibana.service
+sudo systemctl start kibana.service
 
-# Creating Nginx server block file 
